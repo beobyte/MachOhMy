@@ -9,22 +9,16 @@
 import Foundation
 import MachO
 
-final class MachHeaderDescriptor {
+public struct MachHeaderDescriptor {
     
     // MARK: - Properties
     
     let pointer: UnsafePointer<mach_header>
-    var header: mach_header {
+    var machHeader: mach_header {
         return pointer.pointee
     }
     var is64Bit: Bool {
-        return (header.magic == MH_MAGIC_64) || (header.magic == MH_CIGAM_64)
-    }
-    
-    // MARK: - Init
-    
-    init(pointer:UnsafePointer<mach_header>) {
-        self.pointer = pointer
+        return (machHeader.magic == MH_MAGIC_64) || (machHeader.magic == MH_CIGAM_64)
     }
     
 }

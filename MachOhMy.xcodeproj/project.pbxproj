@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9FD18DDB227F1DE9008DA249 /* MachHeaderDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD18DD5227F1DE9008DA249 /* MachHeaderDescriptor.swift */; };
+		9FD18DDC227F1DE9008DA249 /* MachOFileDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD18DD6227F1DE9008DA249 /* MachOFileDescriptor.swift */; };
+		9FD18DDD227F1DE9008DA249 /* MachOFileProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD18DD7227F1DE9008DA249 /* MachOFileProvider.swift */; };
+		9FD18DDE227F1DE9008DA249 /* LoadCommandDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD18DD8227F1DE9008DA249 /* LoadCommandDescriptor.swift */; };
+		9FD18DDF227F1DE9008DA249 /* DemandPagedExecutableFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD18DDA227F1DE9008DA249 /* DemandPagedExecutableFile.swift */; };
 		9FD578D1227D9A80005F66E0 /* MachOhMy.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FD578CF227D9A80005F66E0 /* MachOhMy.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9FD578DA227DA16B005F66E0 /* MachHeaderDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD578D9227DA16B005F66E0 /* MachHeaderDescriptor.swift */; };
-		9FD578DC227DA1A8005F66E0 /* ExecutableFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD578DB227DA1A8005F66E0 /* ExecutableFile.swift */; };
 		9FD578E6227DB58F005F66E0 /* MachOhMyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD578E5227DB58F005F66E0 /* MachOhMyTests.swift */; };
 		9FD578E8227DB58F005F66E0 /* MachOhMy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD578CC227D9A80005F66E0 /* MachOhMy.framework */; };
-		9FD57907227DC9B2005F66E0 /* MachHeaderFileProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD57906227DC9B2005F66E0 /* MachHeaderFileProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,15 +28,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9FD18DD5227F1DE9008DA249 /* MachHeaderDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MachHeaderDescriptor.swift; sourceTree = "<group>"; };
+		9FD18DD6227F1DE9008DA249 /* MachOFileDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MachOFileDescriptor.swift; sourceTree = "<group>"; };
+		9FD18DD7227F1DE9008DA249 /* MachOFileProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MachOFileProvider.swift; sourceTree = "<group>"; };
+		9FD18DD8227F1DE9008DA249 /* LoadCommandDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadCommandDescriptor.swift; sourceTree = "<group>"; };
+		9FD18DDA227F1DE9008DA249 /* DemandPagedExecutableFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemandPagedExecutableFile.swift; sourceTree = "<group>"; };
 		9FD578CC227D9A80005F66E0 /* MachOhMy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MachOhMy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD578CF227D9A80005F66E0 /* MachOhMy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MachOhMy.h; sourceTree = "<group>"; };
 		9FD578D0227D9A80005F66E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9FD578D9227DA16B005F66E0 /* MachHeaderDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachHeaderDescriptor.swift; sourceTree = "<group>"; };
-		9FD578DB227DA1A8005F66E0 /* ExecutableFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutableFile.swift; sourceTree = "<group>"; };
 		9FD578E3227DB58F005F66E0 /* MachOhMyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MachOhMyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD578E5227DB58F005F66E0 /* MachOhMyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachOhMyTests.swift; sourceTree = "<group>"; };
 		9FD578E7227DB58F005F66E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9FD57906227DC9B2005F66E0 /* MachHeaderFileProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachHeaderFileProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9FD18DD4227F1DE9008DA249 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				9FD18DD5227F1DE9008DA249 /* MachHeaderDescriptor.swift */,
+				9FD18DD6227F1DE9008DA249 /* MachOFileDescriptor.swift */,
+				9FD18DD7227F1DE9008DA249 /* MachOFileProvider.swift */,
+				9FD18DD8227F1DE9008DA249 /* LoadCommandDescriptor.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		9FD18DD9227F1DE9008DA249 /* MachOFiles */ = {
+			isa = PBXGroup;
+			children = (
+				9FD18DDA227F1DE9008DA249 /* DemandPagedExecutableFile.swift */,
+			);
+			path = MachOFiles;
+			sourceTree = "<group>";
+		};
 		9FD578C2227D9A80005F66E0 = {
 			isa = PBXGroup;
 			children = (
@@ -77,11 +100,10 @@
 		9FD578CE227D9A80005F66E0 /* MachOhMy */ = {
 			isa = PBXGroup;
 			children = (
+				9FD18DD4227F1DE9008DA249 /* Core */,
+				9FD18DD9227F1DE9008DA249 /* MachOFiles */,
 				9FD578CF227D9A80005F66E0 /* MachOhMy.h */,
 				9FD578D0227D9A80005F66E0 /* Info.plist */,
-				9FD57906227DC9B2005F66E0 /* MachHeaderFileProvider.swift */,
-				9FD578D9227DA16B005F66E0 /* MachHeaderDescriptor.swift */,
-				9FD578DB227DA1A8005F66E0 /* ExecutableFile.swift */,
 			);
 			path = MachOhMy;
 			sourceTree = "<group>";
@@ -161,7 +183,6 @@
 					};
 					9FD578E2227DB58F005F66E0 = {
 						CreatedOnToolsVersion = 10.2.1;
-						TestTargetID = 9FD578F1227DB7EC005F66E0;
 					};
 				};
 			};
@@ -206,9 +227,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FD578DA227DA16B005F66E0 /* MachHeaderDescriptor.swift in Sources */,
-				9FD57907227DC9B2005F66E0 /* MachHeaderFileProvider.swift in Sources */,
-				9FD578DC227DA1A8005F66E0 /* ExecutableFile.swift in Sources */,
+				9FD18DDE227F1DE9008DA249 /* LoadCommandDescriptor.swift in Sources */,
+				9FD18DDD227F1DE9008DA249 /* MachOFileProvider.swift in Sources */,
+				9FD18DDB227F1DE9008DA249 /* MachHeaderDescriptor.swift in Sources */,
+				9FD18DDC227F1DE9008DA249 /* MachOFileDescriptor.swift in Sources */,
+				9FD18DDF227F1DE9008DA249 /* DemandPagedExecutableFile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +434,7 @@
 		9FD578EC227DB58F005F66E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KX5D9MEEYM;
 				INFOPLIST_FILE = MachOhMyTests/Info.plist;
@@ -423,13 +447,13 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MachOhMyTestApp.app/MachOhMyTestApp";
 			};
 			name = Debug;
 		};
 		9FD578ED227DB58F005F66E0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KX5D9MEEYM;
 				INFOPLIST_FILE = MachOhMyTests/Info.plist;
@@ -442,7 +466,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MachOhMyTestApp.app/MachOhMyTestApp";
 			};
 			name = Release;
 		};

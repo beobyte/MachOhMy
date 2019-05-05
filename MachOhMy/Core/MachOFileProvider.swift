@@ -1,5 +1,5 @@
 //
-//  MachHeaderFileProvider.swift
+//  MachOFileProvider.swift
 //  MachOhMy
 //
 //  Created by Anton Grachev on 04/05/2019.
@@ -9,16 +9,16 @@
 import Foundation
 import MachO
 
-public final class MachHeaderFileProvider {
+public final class MachOFileProvider {
     
     // MARK: - Public methods
     
-    static func executableFile() -> ExecutableFile? {
+    public static func demandPagedExecutableFile() -> DemandPagedExecutableFile? {
         guard let pointer = findHeader(with: MH_EXECUTE) else {
             return nil
         }
         let machHeader = MachHeaderDescriptor(pointer: pointer)
-        return ExecutableFile(machHeader: machHeader)
+        return DemandPagedExecutableFile(machHeader: machHeader)
     }
     
     // MARK: - Private methods
