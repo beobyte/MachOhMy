@@ -112,12 +112,18 @@ public final class DemandPagedExecutableFile {
     private func codeSignatureFromLoadCommand(pointer: UnsafeRawPointer) -> Any? {
         let codeSignatureCommand = loadCommand(pointer: pointer) as linkedit_data_command
         let dataStart = UnsafeRawPointer(header.pointer).advanced(by: Int(codeSignatureCommand.dataoff))
-        let superBlob = UnsafeRawPointer(dataStart).bindMemory(to: CSSuperBlob.self, capacity: 1).pointee
+        let superBlobPtr = UnsafeRawPointer(dataStart).bindMemory(to: CSSuperBlob.self, capacity: 1)
+        let superBlob = superBlobPtr.pointee
         if superBlob.magic != embeddedSignatureMagic {
             return nil
         }
         
-        // TODO: Implement
+        for count in 0..<superBlob.count {
+            let offset = superBlob.index[Int(count)].offset
+            let bytes = UnsafeRawPointer(superBlobPtr).bindMemory(to: UInt8.self, capacity: 1).advanced(by: Int(offset))
+            let magic = UnsafeRawPointer(bytes).bindMemory(to: UInt32.self, capacity: 1)
+            // TODO: Implement
+        }
         
         return nil
     }
@@ -138,7 +144,7 @@ extension DemandPagedExecutableFile: MachOFileDescriptor {
     
 }
 
-// MARK: - Internal types and constants
+// MARK: - Code signature internals
 
 private extension DemandPagedExecutableFile {
     
@@ -148,6 +154,10 @@ private extension DemandPagedExecutableFile {
     var requirementsBlobMagic: UInt32 { return 0xfade0c01 }
     var codeDirectoryBlobMagic: UInt32 { return 0xfade0c02 }
     var entitlementsBlobMagic: UInt32 { return 0xfade7171 }
+    
+    /*
+     * Structure of an embedded-signature SuperBlob
+     */
     
     struct CSBlobIndex {
         let type: UInt32    /* type of entry */
@@ -159,6 +169,27 @@ private extension DemandPagedExecutableFile {
         let length: UInt32          /* total length of SuperBlob */
         let count: UInt32           /* number of index entries following */
         let index: [CSBlobIndex]    /* (count) entries */
+    }
+    
+    /*
+     * Swift form of a CodeDirectory.
+     */
+    struct CodeDirectory {
+        let magic: UInt32                 /* magic number (CSMAGIC_CODEDIRECTORY) */
+        let length: UInt32                /* total length of CodeDirectory blob */
+        let version: UInt32               /* compatibility version */
+        let flags: UInt32                 /* setup and mode flags */
+        let hashOffset: UInt32            /* offset of hash slot element at index zero */
+        let identOffset: UInt32           /* offset of identifier string */
+        let nSpecialSlots: UInt32         /* number of special hash slots */
+        let nCodeSlots: UInt32            /* number of ordinary (code) hash slots */
+        let codeLimit: UInt32             /* limit to main image signature range */
+        let hashSize: UInt8               /* size of each hash in bytes */
+        let hashType: UInt8               /* type of hash (cdHashType* constants) */
+        let spare1: UInt8                 /* unused (must be zero) */
+        let pageSize: UInt8               /* log2(page size in bytes); 0 => infinite */
+        let spare2: UInt32                /* unused (must be zero) */
+        /* followed by dynamic content as located by offset fields above */
     }
     
 }
