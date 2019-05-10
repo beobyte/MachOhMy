@@ -43,6 +43,13 @@ public final class DemandPagedExecutableFile {
         }
         return cryptId
     }
+    
+    public func codeSignature() -> Any? {
+        guard let codeSignature = dataFromLoadCommand(LC_CODE_SIGNATURE) as Any? else {
+            return nil
+        }
+        return codeSignature
+    }
 
     // MARK: - Private methods
     
@@ -72,6 +79,12 @@ public final class DemandPagedExecutableFile {
                     data = cryptId
                 }
                 break;
+                
+            case LC_CODE_SIGNATURE:
+                if let codeSignature = codeSignatureFromLoadCommand(pointer: loadCommand.pointer) as? T? {
+                    data = codeSignature
+                }
+                break;
 
             default:
                 print("Unsupported load command type: \(commandType)")
@@ -95,6 +108,19 @@ public final class DemandPagedExecutableFile {
         let encryptionInfoCommand = loadCommand(pointer: pointer) as encryption_info_command_64
         return encryptionInfoCommand.cryptid
     }
+    
+    private func codeSignatureFromLoadCommand(pointer: UnsafeRawPointer) -> Any? {
+        let codeSignatureCommand = loadCommand(pointer: pointer) as linkedit_data_command
+        let dataStart = UnsafeRawPointer(header.pointer).advanced(by: Int(codeSignatureCommand.dataoff))
+        let superBlob = UnsafeRawPointer(dataStart).bindMemory(to: CSSuperBlob.self, capacity: 1).pointee
+        if superBlob.magic != embeddedSignatureMagic {
+            return nil
+        }
+        
+        // TODO: Implement
+        
+        return nil
+    }
 
     private func loadCommand<T>(pointer: UnsafeRawPointer) -> T {
         return UnsafeRawPointer(pointer).bindMemory(to: T.self, capacity: 1).pointee
@@ -102,10 +128,37 @@ public final class DemandPagedExecutableFile {
     
 }
 
+// MARK: - MachOFileDescriptor protocol
+
 extension DemandPagedExecutableFile: MachOFileDescriptor {
     
     public var header: MachHeaderDescriptor {
         return machHeader
+    }
+    
+}
+
+// MARK: - Internal types and constants
+
+private extension DemandPagedExecutableFile {
+    
+    // Based on https://opensource.apple.com/source/Security/Security-57337.50.23/codesign_wrapper/codesign.c.auto.html
+    
+    var embeddedSignatureMagic: UInt32 { return 0xfade0cc0 }
+    var requirementsBlobMagic: UInt32 { return 0xfade0c01 }
+    var codeDirectoryBlobMagic: UInt32 { return 0xfade0c02 }
+    var entitlementsBlobMagic: UInt32 { return 0xfade7171 }
+    
+    struct CSBlobIndex {
+        let type: UInt32    /* type of entry */
+        let offset: UInt32  /* offset of entry */
+    }
+    
+    struct CSSuperBlob {
+        let magic: UInt32           /* magic number */
+        let length: UInt32          /* total length of SuperBlob */
+        let count: UInt32           /* number of index entries following */
+        let index: [CSBlobIndex]    /* (count) entries */
     }
     
 }
